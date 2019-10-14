@@ -2,7 +2,7 @@
 ![Test Status](https://img.shields.io/azure-devops/tests/ardalis/CleanArchitecture/3.svg)
 [![Test Coverage](https://img.shields.io/azure-devops/coverage/ardalis/CleanArchitecture/3.svg)](https://dev.azure.com/ardalis/CleanArchitecture/_build?definitionId=3)
 
-# CleanArchitecture
+# Clean Architecture
 
 A starting point for Clean Architecture with ASP.NET Core. [Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html) is just the latest in a series of names for the same loosely-coupled, dependency-inverted architecture. You will also find it named [hexagonal](http://alistair.cockburn.us/Hexagonal+architecture), [ports-and-adapters](http://www.dossier-andreas.net/software_architecture/ports_and_adapters.html), or [onion architecture](http://jeffreypalermo.com/blog/the-onion-architecture-part-1/).
 
@@ -10,6 +10,13 @@ A starting point for Clean Architecture with ASP.NET Core. [Clean Architecture](
 If you like or are using this project to learn or start your solution, please give it a star. Thanks!
 
 ## *Now available as a [project template](https://marketplace.visualstudio.com/items?itemName=GregTrevellick.CleanArchitecture) within Visual Studio.*
+
+## Versions
+
+The master branch is now using .NET Core Version 3.0. If you need a 2.x version use one of these tagged commits:
+
+- [2.2](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-2.2)
+- [2.0](https://github.com/ardalis/CleanArchitecture/tree/dotnet-core-2.0)
 
 ## Learn More
 
@@ -61,9 +68,9 @@ The Infrastructure project depends on `Microsoft.EntityFrameworkCore.SqlServer` 
 
 The entry point of the application is the ASP.NET Core web project. This is actually a console application, with a `public static void Main` method in `Program.cs`. It currently uses the default MVC organization (Controllers and Views folders) as well as most of the default ASP.NET Core project template code. This includes its configuration system, which uses the default `appsettings.json` file plus environment variables, and is configured in `Startup.cs`. The one dependency that you'll see used in this project is `StructureMap`, which is configured in the `Startup.cs` class. There are two reasons I prefer `StructureMap` to the built-in container that ships with ASP.NET Core (and which Microsoft states is only a starting point with minimal functionality). First, the above-mentioned technique for avoiding the need for project references between Web and Infrastructure projects. Second, its `WithDefaultConventions` convention saves a lot of boilerplate coding when you are wiring up implementations to interfaces that follow a simple naming convention. If for instance I have an `INotificationService` interface that I want to be resolved using an instance of `NotificationService`, in ASP.NET Core I would need to add a line of code to add this. With StructureMap's `WithDefaultConventions` convention, this wireup happens automatically. Any interface named `IWhatever` will be resolved by a class named `Whatever`.
 
-## The Test Project
+## The Test Projects
 
-In a real application I will likely have separate test projects, organized based on the kind of test (unit, functional, integration, performance, etc.) or by the project they are testing (Core, Infrastructure, Web), or both. For this simple starter kit, there is just one test project, with folders representing the projects being tested. In terms of dependencies, there are three worth noting:
+Test projects could be organized based on the kind of test (unit, functional, integration, performance, etc.) or by the project they are testing (Core, Infrastructure, Web), or both. For this simple starter kit, the test projects are organized based on the kind of test, with unit, functional and integration test projects existing in this solution. In terms of dependencies, there are three worth noting:
 
 - [xunit](https://www.nuget.org/packages/xunit) I'm using xunit because that's what ASP.NET Core uses internally to test the product. It works great and as new versions of ASP.NET Core ship, I'm confident it will continue to work well with it.
 
